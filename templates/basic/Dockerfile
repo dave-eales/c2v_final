@@ -18,9 +18,6 @@ COPY ./10-globally-managed-devices.conf /usr/lib/NetworkManager/conf.d/10-global
 # Copy Netplan configuration
 COPY ./01-netcfg.yaml /etc/netplan/01-netcfg.yaml
 
-# Copy resolve.conf
-COPY ./resolv.conf /etc/resolv.conf
-
 # Set permissions on Netplan configuration
 RUN chmod 600 /etc/netplan/01-netcfg.yaml
 
