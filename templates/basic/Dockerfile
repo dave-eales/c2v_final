@@ -28,7 +28,7 @@ RUN chmod 600 /etc/netplan/01-netcfg.yaml
 COPY ./firstboot.sh /root/firstboot.sh
 
 # Add script to crontab so that it runs on first boot
-RUN echo "@reboot /bin/bash /root/firstboot.sh" >> /etc/crontab
+RUN echo "@reboot root /bin/bash /root/firstboot.sh" >> /etc/crontab
 
 # boot
 RUN cd /boot \
