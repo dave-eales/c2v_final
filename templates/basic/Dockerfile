@@ -9,6 +9,9 @@ RUN apt install -y linux-image-virtual
 # init
 RUN DEBIAN_FRONTEND=noninteractive apt install -y systemd-sysv
 
+# cron
+RUN DEBIAN_FRONTEND=noninteractive apt install -y cron
+
 # network
 RUN DEBIAN_FRONTEND=noninteractive apt install -y network-manager net-tools isc-dhcp-client iputils-ping netplan.io ifupdown
 
@@ -21,8 +24,11 @@ COPY ./01-netcfg.yaml /etc/netplan/01-netcfg.yaml
 # Set permissions on Netplan configuration
 RUN chmod 600 /etc/netplan/01-netcfg.yaml
 
-# Link /etc/resolv.conf to /run/systemd/resolve/stub-resolv.conf
-RUN ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+# Copy firstboot script
+COPY ./firstboot.sh /root/firstboot.sh
+
+# Add script to crontab so that it runs on first boot
+RUN echo "@reboot /bin/bash /root/firstboot.sh" >> /etc/crontab
 
 # boot
 RUN cd /boot \
