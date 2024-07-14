@@ -21,6 +21,9 @@ COPY ./01-netcfg.yaml /etc/netplan/01-netcfg.yaml
 # Set permissions on Netplan configuration
 RUN chmod 600 /etc/netplan/01-netcfg.yaml
 
+# Link /etc/resolv.conf to /run/systemd/resolve/stub-resolv.conf
+RUN ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+
 # boot
 RUN cd /boot \
     && ln -fs vmlinuz-* vmlinuz \

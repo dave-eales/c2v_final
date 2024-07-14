@@ -3,6 +3,3 @@ network:
   ethernets:
     ens33:
       dhcp4: true
-      nameservers:
-        addresses:
-          - 127.0.0.53
