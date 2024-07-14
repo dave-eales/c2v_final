@@ -12,7 +12,14 @@ RUN DEBIAN_FRONTEND=noninteractive apt install -y systemd-sysv
 # network
 RUN DEBIAN_FRONTEND=noninteractive apt install -y network-manager net-tools isc-dhcp-client iputils-ping netplan.io ifupdown
 
+# Copy NetworkManager configuration
 COPY ./10-globally-managed-devices.conf /usr/lib/NetworkManager/conf.d/10-globally-managed-devices.conf
+
+# Copy Netplan configuration
+COPY ./01-netcfg.yaml /etc/netplan/01-netcfg.yaml
+
+# Set permissions on Netplan configuration
+RUN chmod 600 /etc/netplan/01-netcfg.yaml
 
 # boot
 RUN cd /boot \
